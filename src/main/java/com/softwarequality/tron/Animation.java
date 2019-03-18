@@ -16,9 +16,9 @@ public class Animation {
         start();
     }
 
-    public synchronized void addScene(Image i, long t) {
-        totalTime += t;
-        scenes.add(new oneScene(i, totalTime));
+    public synchronized void addScene(Image image, long time) {
+        totalTime += time;
+        scenes.add(new oneScene(image, totalTime));
     }
 
     public synchronized void start() {

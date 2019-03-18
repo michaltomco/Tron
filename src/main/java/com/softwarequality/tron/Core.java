@@ -18,7 +18,7 @@ public abstract class Core {
                     new DisplayMode(640, 480, 16, 0),
             };
     private boolean running;
-    protected ScreenManager sm;
+    protected ScreenManager screenManager;
 
     public void stop() {
         running = false;
@@ -29,19 +29,21 @@ public abstract class Core {
             init();
             gameLoop();
         } finally {
-            sm.restoreScreen();
+            screenManager.restoreScreen();
         }
     }
 
     public void init() {
-        sm = new ScreenManager();
-        DisplayMode dm = sm.findFirstCompatibaleMode(modes);
-        sm.setFullScreen(dm);
-        Window w = sm.getFullScreenWindow();
-        w.setFont(new Font("Arial", Font.PLAIN, 20));
-        w.setBackground(Color.WHITE);
-        w.setForeground(Color.RED);
-        w.setCursor(w.getToolkit().createCustomCursor(new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB), new Point(0, 0), "null"));
+        screenManager = new ScreenManager();
+        DisplayMode displayMode = screenManager.findFirstCompatibaleMode(modes);
+        screenManager.setFullScreen(displayMode);
+        Window fullScreenWindow = screenManager.getFullScreenWindow();
+        fullScreenWindow.setFont(new Font("Arial", Font.PLAIN, 20));
+        fullScreenWindow.setBackground(Color.WHITE);
+        fullScreenWindow.setForeground(Color.RED);
+        fullScreenWindow.setCursor(fullScreenWindow.getToolkit().createCustomCursor(
+                new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB),
+                new Point(0, 0), "null"));
         running = true;
     }
 
@@ -53,10 +55,10 @@ public abstract class Core {
             long timePassed = System.currentTimeMillis() - cumTime;
             cumTime += timePassed;
             update(timePassed);
-            Graphics2D g = sm.getGraphics();
-            draw(g);
-            g.dispose();
-            sm.update();
+            Graphics2D graphics = screenManager.getGraphics();
+            draw(graphics);
+            graphics.dispose();
+            screenManager.update();
 
             try {
                 Thread.sleep(20);
@@ -68,6 +70,6 @@ public abstract class Core {
     public void update(long timePassed) {
     }
 
-    public abstract void draw(Graphics2D g);
+    public abstract void draw(Graphics2D graphics2D);
 
 }
