@@ -34,6 +34,11 @@ public abstract class Core {
     }
 
     public void init() {
+        initPresentation();
+        running = true;
+    }
+
+    private void initPresentation() {
         screenManager = new ScreenManager();
         DisplayMode displayMode = screenManager.findFirstCompatibaleMode(modes);
         screenManager.setFullScreen(displayMode);
@@ -44,7 +49,6 @@ public abstract class Core {
         fullScreenWindow.setCursor(fullScreenWindow.getToolkit().createCustomCursor(
                 new BufferedImage(3, 3, BufferedImage.TYPE_INT_ARGB),
                 new Point(0, 0), "null"));
-        running = true;
     }
 
     public void gameLoop() {

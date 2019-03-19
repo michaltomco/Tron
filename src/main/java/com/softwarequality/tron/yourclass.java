@@ -28,6 +28,10 @@ public class YourClass extends Core implements KeyListener, MouseListener,
         super.init();
 
         Window fullScreenWindow = screenManager.getFullScreenWindow();
+        addPlayers(fullScreenWindow);
+    }
+
+    private void addPlayers(Window fullScreenWindow) {
         fullScreenWindow.addKeyListener(this);
         fullScreenWindow.addMouseListener(this);
         fullScreenWindow.addMouseMotionListener(this);
@@ -38,36 +42,32 @@ public class YourClass extends Core implements KeyListener, MouseListener,
     }
 
     public void draw(Graphics2D graphics2D) {
-        switch (currentDirection1) {
-            case 0:
-                if (centrey1 > 0) {
-                    centrey1 -= moveAmount;
-                } else {
-                    centrey1 = screenManager.getHeight();
-                }
-                break;
-            case 1:
-                if (centrex1 < screenManager.getWidth()) {
-                    centrex1 += moveAmount;
-                } else {
-                    centrex1 = 0;
-                }
-                break;
-            case 2:
-                if (centrey1 < screenManager.getHeight()) {
-                    centrey1 += moveAmount;
-                } else {
-                    centrey1 = 0;
-                }
-                break;
-            case 3:
-                if (centrex1 > 0) {
-                    centrex1 -= moveAmount;
-                } else {
-                    centrex1 = screenManager.getWidth();
-                }
-                break;
+        // Logic
+        calculatePositionPlayer1();
+        calculatePositionPlayer2();
+        checkCollision();
+        updatePath(pathx1, pathy1, centrex1, centrey1);
+        updatePath(pathx2, pathy2, centrex2, centrey2);
+        // Graphics
+        graphics2D.setColor(Color.BLACK);
+        graphics2D.fillRect(0, 0, screenManager.getWidth(), screenManager.getHeight());
+        for (int x = 0; x < pathx1.size(); x++) {
+            colorRectangle(graphics2D, x, Color.green, pathx1, pathy1);
+            colorRectangle(graphics2D, x, Color.red, pathx2, pathy2);
         }
+    }
+
+    private void colorRectangle(Graphics2D graphics2D, int x, Color color, ArrayList<Integer> pathx, ArrayList<Integer> pathy) {
+        graphics2D.setColor(color);
+        graphics2D.fillRect(pathx.get(x), pathy.get(x), 10, 10);
+    }
+
+    private void updatePath(ArrayList<Integer> pathx, ArrayList<Integer> pathy, int centrex,  int centrey) {
+        pathx.add(centrex);
+        pathy.add(centrey);
+    }
+
+    private void calculatePositionPlayer2() {
         switch (currentDirection2) {
             case 0:
                 if (centrey2 > 0) {
@@ -98,46 +98,59 @@ public class YourClass extends Core implements KeyListener, MouseListener,
                 }
                 break;
         }
+    }
+
+    private void calculatePositionPlayer1() {
+        switch (currentDirection1) {
+            case 0:
+                if (centrey1 > 0) {
+                    centrey1 -= moveAmount;
+                } else {
+                    centrey1 = screenManager.getHeight();
+                }
+                break;
+            case 1:
+                if (centrex1 < screenManager.getWidth()) {
+                    centrex1 += moveAmount;
+                } else {
+                    centrex1 = 0;
+                }
+                break;
+            case 2:
+                if (centrey1 < screenManager.getHeight()) {
+                    centrey1 += moveAmount;
+                } else {
+                    centrey1 = 0;
+                }
+                break;
+            case 3:
+                if (centrex1 > 0) {
+                    centrex1 -= moveAmount;
+                } else {
+                    centrex1 = screenManager.getWidth();
+                }
+                break;
+        }
+    }
+
+    private void checkCollision() {
         for (int x = 0; x < pathx1.size(); x++) {
             if (((centrex1 == pathx1.get(x)) && (centrey1 == pathy1.get(x)))
                     || ((centrex2 == pathx2.get(x)) && (centrey2 == pathy2.get(x)))
                     || ((centrex1 == pathx2.get(x)) && (centrey1 == pathy2.get(x)))
                     || ((centrex2 == pathx1.get(x)) && (centrey2 == pathy1.get(x)))) {
+                System.out.println("Collision detected. Exiting.");
                 System.exit(0);
             }
-        }
-        pathx1.add(centrex1);
-        pathy1.add(centrey1);
-        pathx2.add(centrex2);
-        pathy2.add(centrey2);
-        graphics2D.setColor(Color.BLACK);
-        graphics2D.fillRect(0, 0, screenManager.getWidth(), screenManager.getHeight());
-        for (int x = 0; x < pathx1.size(); x++) {
-            graphics2D.setColor(Color.green);
-            graphics2D.fillRect(pathx1.get(x), pathy1.get(x), 10, 10);
-            graphics2D.setColor(Color.red);
-            graphics2D.fillRect(pathx2.get(x), pathy2.get(x), 10, 10);
         }
     }
 
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_UP) {
-            if (currentDirection1 != 2) {
-                currentDirection1 = 0;
-            }
-        } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
-            if (currentDirection1 != 0) {
-                currentDirection1 = 2;
-            }
-        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            if (currentDirection1 != 3) {
-                currentDirection1 = 1;
-            }
-        } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            if (currentDirection1 != 1) {
-                currentDirection1 = 3;
-            }
-        }
+        keyPressedArrows(e);
+        keyPressedWASD(e);
+    }
+
+    private void keyPressedWASD(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_W) {
             if (currentDirection2 != 2) {
                 currentDirection2 = 0;
@@ -153,6 +166,26 @@ public class YourClass extends Core implements KeyListener, MouseListener,
         } else if (e.getKeyCode() == KeyEvent.VK_A) {
             if (currentDirection2 != 1) {
                 currentDirection2 = 3;
+            }
+        }
+    }
+
+    private void keyPressedArrows(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_UP) {
+            if (currentDirection1 != 2) {
+                currentDirection1 = 0;
+            }
+        } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (currentDirection1 != 0) {
+                currentDirection1 = 2;
+            }
+        } else if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            if (currentDirection1 != 3) {
+                currentDirection1 = 1;
+            }
+        } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+            if (currentDirection1 != 1) {
+                currentDirection1 = 3;
             }
         }
     }
