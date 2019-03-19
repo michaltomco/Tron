@@ -43,8 +43,8 @@ public class YourClass extends Core implements KeyListener, MouseListener,
 
     public void draw(Graphics2D graphics2D) {
         // Logic
-        calculatePositionPlayer1();
-        calculatePositionPlayer2();
+        calculateCurrentPositionPlayer1();
+        calculateCurrentPositionPlayer2();
         checkCollision();
         updatePath(pathx1, pathy1, centrex1, centrey1);
         updatePath(pathx2, pathy2, centrex2, centrey2);
@@ -67,7 +67,7 @@ public class YourClass extends Core implements KeyListener, MouseListener,
         pathy.add(centrey);
     }
 
-    private void calculatePositionPlayer2() {
+    private void calculateCurrentPositionPlayer2() {
         switch (currentDirection2) {
             case 0:
                 if (centrey2 > 0) {
@@ -100,7 +100,7 @@ public class YourClass extends Core implements KeyListener, MouseListener,
         }
     }
 
-    private void calculatePositionPlayer1() {
+    private void calculateCurrentPositionPlayer1() {
         switch (currentDirection1) {
             case 0:
                 if (centrey1 > 0) {
