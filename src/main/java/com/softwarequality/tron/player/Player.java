@@ -12,9 +12,7 @@ import java.util.Collection;
 public interface Player {
     
     public Point getCurrentPosition();
-    public Direction getPointedDirection();
-    public void changeDirection(InputEvent pressedKey);
-    public void moveForward();
+    public Point getOrientation();
+    public void changeDirection(OrientationChangeAction mover);
     public Collection<Point> getPath();
-    public boolean isControlledByKey(InputEvent pressedKey);
 }
