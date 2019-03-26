@@ -30,36 +30,62 @@ public class ModelImpl implements Model {
     }
 
     private void initializePlayers() {
+        initializePlayer1();
+        initializePlayer2();
+
+//        initializePlayer3();
+//        initializePlayer4();
+    }
+
+    private void initializePlayer4() {
+        initializePlayerKey(KeyEvent.VK_I, KeyEvent.VK_K, KeyEvent.VK_J, KeyEvent.VK_L,
+                800, 75, -1, 0, Color.WHITE);
+    }
+
+    private void initializePlayer3() {
+        initializePlayerKey(KeyEvent.VK_W, KeyEvent.VK_S, KeyEvent.VK_A, KeyEvent.VK_D,
+                250, 75, 1, 0, Color.BLUE);
+    }
+
+    private void initializePlayer2() {
+        initializePlayerKey(KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT,
+                800, 500, -1, 0, Color.RED);
+    }
+
+    private void initializePlayer1() {
+        initializePlayerMouse();
+    }
+
+    private void initializePlayerKey(
+            int keyNorth,
+            int keySouth,
+            int keyWest,
+            int keyEast,
+            int startingPositionX,
+            int startingPositionY,
+            int orientationX,
+            int orientationY,
+            Color blue) {
+        Map<Integer, OrientationChangeAction> controlsPlayer3 = new HashMap<>();
+        controlsPlayer3.put(keyNorth, DirectOrientationChange.UP);
+        controlsPlayer3.put(keySouth, DirectOrientationChange.DOWN);
+        controlsPlayer3.put(keyWest, DirectOrientationChange.LEFT);
+        controlsPlayer3.put(keyEast, DirectOrientationChange.RIGHT);
+        players.add(createNewPlayer(new Point(startingPositionX, startingPositionY),
+                                    controlsPlayer3,
+                                    new Orientation(orientationX, orientationY),
+                                    blue));
+    }
+
+    private void initializePlayerMouse() {
         Map<Integer, OrientationChangeAction> controlsPlayer1 = new HashMap<>();
         controlsPlayer1.put(MouseEvent.BUTTON1, RotatatingOrientationChange.COUNTERCLOCKWISE);
         controlsPlayer1.put(MouseEvent.BUTTON3, RotatatingOrientationChange.CLOCKWISE);
         players.add(createNewPlayer(new Point(250, 500), controlsPlayer1, new Orientation(1, 0), Color.GREEN));
-
-        Map<Integer, OrientationChangeAction> controlsPlayer2 = new HashMap<>();
-        controlsPlayer2.put(KeyEvent.VK_UP, DirectOrientationChange.UP);
-        controlsPlayer2.put(KeyEvent.VK_DOWN, DirectOrientationChange.DOWN);
-        controlsPlayer2.put(KeyEvent.VK_LEFT, DirectOrientationChange.LEFT);
-        controlsPlayer2.put(KeyEvent.VK_RIGHT, DirectOrientationChange.RIGHT);
-        players.add(createNewPlayer(new Point(800, 500), controlsPlayer2, new Orientation(-1, 0), Color.RED));
-
-        /*
-        Map<Integer, OrientationChangeAction> controlsPlayer3 = new HashMap<>();
-        controlsPlayer3.put(KeyEvent.VK_W, DirectOrientationChange.UP);
-        controlsPlayer3.put(KeyEvent.VK_S, DirectOrientationChange.DOWN);
-        controlsPlayer3.put(KeyEvent.VK_A, DirectOrientationChange.LEFT);
-        controlsPlayer3.put(KeyEvent.VK_D, DirectOrientationChange.RIGHT);
-        players.add(createNewPlayer(new Point(250,75),controlsPlayer3, new Orientation(1, 0), Color.BLUE));
-        
-        Map<Integer, OrientationChangeAction> controlsPlayer4 = new HashMap<>();
-        controlsPlayer4.put(KeyEvent.VK_I, DirectOrientationChange.UP);
-        controlsPlayer4.put(KeyEvent.VK_K, DirectOrientationChange.DOWN);
-        controlsPlayer4.put(KeyEvent.VK_J, DirectOrientationChange.LEFT);
-        controlsPlayer4.put(KeyEvent.VK_L, DirectOrientationChange.RIGHT);
-        players.add(createNewPlayer(new Point(800,75),controlsPlayer4, new Orientation(-1, 0), Color.WHITE));
-         */
     }
 
-    private PlayerWithControls createNewPlayer(Point startingPosition,
+    private PlayerWithControls createNewPlayer(
+            Point startingPosition,
             Map<Integer, OrientationChangeAction> controls,
             Orientation orientation,
             Color playerColor) {
