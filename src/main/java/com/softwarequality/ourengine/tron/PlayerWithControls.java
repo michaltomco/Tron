@@ -4,12 +4,12 @@ import com.softwarequality.ourengine.tron.player.OrientationChangeAction;
 import com.softwarequality.ourengine.tron.player.Player;
 import java.util.Map;
 
-public class ControlKeyBinder {
+public class PlayerWithControls {
 
     private final Player player;
     private final Map<Integer, OrientationChangeAction> keyBindings;
 
-    public ControlKeyBinder(Player player, Map<Integer, OrientationChangeAction> keyBindings) {
+    public PlayerWithControls(Player player, Map<Integer, OrientationChangeAction> keyBindings) {
         this.player = player;
         this.keyBindings = keyBindings;
     }

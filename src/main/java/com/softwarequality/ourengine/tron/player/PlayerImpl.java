@@ -13,32 +13,6 @@ public class PlayerImpl implements Player {
     private final LinkedList<Point> path;
     private final Color playerColor;
 
-    public PlayerImpl(Point startingPosition) {
-        this.path = new LinkedList<>();
-        
-        this.currentPosition = startingPosition;
-        this.orientation = new Orientation(
-                DirectOrientationChange.UP.getOrientationChangeCoordinates()
-        );
-
-        this.playerColor = new Color(
-                (int) (Math.random() * 255),
-                (int) (Math.random() * 255), (int) (Math.random() * 255));
-    }
-
-    public PlayerImpl(Point startingPosition, Orientation orientation) {
-        this.path = new LinkedList<>();
-        
-        this.currentPosition = startingPosition;
-        this.orientation = orientation;
-
-        this.playerColor = new Color(
-                (int) (Math.random() * 255),
-                (int) (Math.random() * 255),
-                (int) (Math.random() * 255)
-        );
-    }
-
     public PlayerImpl(Point startingPosition, Orientation orientation, Color playerColor) {
         this.path = new LinkedList<>();
         
@@ -79,13 +53,10 @@ public class PlayerImpl implements Player {
 
     @Override
     public void changeOrientation(OrientationChangeAction mover) {
+        System.out.println(mover.orient(orientation));
         Orientation newOrientation = mover.orient(orientation);
-        if (!isOppositeOrientation(newOrientation)) {
+        if (!newOrientation.isOppositeOrientation(this.getOrientation())) {
             orientation = newOrientation;
         }
     }
-
-    private boolean isOppositeOrientation(Orientation orientation) {
-        return this.orientation.equals(orientation.getOppositeOrientation(orientation));
-    }    
 }

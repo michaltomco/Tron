@@ -1,5 +1,4 @@
 com\softwarequality\ourengine\tron\player\RotatatingOrientationChange.class
-com\softwarequality\ourengine\tron\ControlKeyBinder.class
 com\softwarequality\ourengine\ScreenManager.class
 com\softwarequality\ourengine\tron\PresentationImpl.class
 com\softwarequality\ourengine\Core.class
@@ -8,6 +7,7 @@ com\softwarequality\ourengine\tron\ModelImpl.class
 com\softwarequality\ourengine\YourClass.class
 com\softwarequality\ourengine\tron\player\Player.class
 com\softwarequality\ourengine\tron\Model.class
+com\softwarequality\ourengine\tron\PlayerWithControls.class
 com\softwarequality\ourengine\tron\player\DirectOrientationChange.class
 com\softwarequality\ourengine\tron\GameArena.class
 com\softwarequality\ourengine\tron\player\Orientation.class

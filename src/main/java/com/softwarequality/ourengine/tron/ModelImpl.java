@@ -1,10 +1,12 @@
 package com.softwarequality.ourengine.tron;
 
 import com.softwarequality.ourengine.tron.player.DirectOrientationChange;
+import com.softwarequality.ourengine.tron.player.Orientation;
 import com.softwarequality.ourengine.tron.player.OrientationChangeAction;
 import com.softwarequality.ourengine.tron.player.Player;
 import com.softwarequality.ourengine.tron.player.PlayerImpl;
 import com.softwarequality.ourengine.tron.player.RotatatingOrientationChange;
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -17,88 +19,88 @@ import java.util.Map;
 public class ModelImpl implements Model {
 
     private final GameArena arena;
-    private final List<Player> players;
-    private final List<ControlKeyBinder> playerKeyBindings;
+    private final List<PlayerWithControls> players;
     private final int gameSpeed = 5;
 
-    private static final Map<Integer, OrientationChangeAction>[] DEFAULT_KEY_BINDINGS = new Map[6];
-
-    static {
-        DEFAULT_KEY_BINDINGS[0] = new HashMap<>();
-        DEFAULT_KEY_BINDINGS[0].put(MouseEvent.BUTTON1, RotatatingOrientationChange.COUNTERCLOCKWISE);
-        DEFAULT_KEY_BINDINGS[0].put(MouseEvent.BUTTON3, RotatatingOrientationChange.CLOCKWISE);
-
-        DEFAULT_KEY_BINDINGS[1] = new HashMap<>();
-        DEFAULT_KEY_BINDINGS[1].put(KeyEvent.VK_UP, DirectOrientationChange.UP);
-        DEFAULT_KEY_BINDINGS[1].put(KeyEvent.VK_DOWN, DirectOrientationChange.DOWN);
-        DEFAULT_KEY_BINDINGS[1].put(KeyEvent.VK_LEFT, DirectOrientationChange.LEFT);
-        DEFAULT_KEY_BINDINGS[1].put(KeyEvent.VK_RIGHT, DirectOrientationChange.RIGHT);
-
-        DEFAULT_KEY_BINDINGS[2] = new HashMap<>();
-        DEFAULT_KEY_BINDINGS[2].put(KeyEvent.VK_W, DirectOrientationChange.UP);
-        DEFAULT_KEY_BINDINGS[2].put(KeyEvent.VK_S, DirectOrientationChange.DOWN);
-        DEFAULT_KEY_BINDINGS[2].put(KeyEvent.VK_A, DirectOrientationChange.LEFT);
-        DEFAULT_KEY_BINDINGS[2].put(KeyEvent.VK_D, DirectOrientationChange.RIGHT);
-
-        DEFAULT_KEY_BINDINGS[3] = new HashMap<>();
-        DEFAULT_KEY_BINDINGS[3].put(KeyEvent.VK_I, DirectOrientationChange.UP);
-        DEFAULT_KEY_BINDINGS[3].put(KeyEvent.VK_J, DirectOrientationChange.DOWN);
-        DEFAULT_KEY_BINDINGS[3].put(KeyEvent.VK_K, DirectOrientationChange.LEFT);
-        DEFAULT_KEY_BINDINGS[3].put(KeyEvent.VK_L, DirectOrientationChange.RIGHT);
-
-        DEFAULT_KEY_BINDINGS[4] = new HashMap<>();
-        DEFAULT_KEY_BINDINGS[4].put(KeyEvent.VK_8, DirectOrientationChange.UP);
-        DEFAULT_KEY_BINDINGS[4].put(KeyEvent.VK_5, DirectOrientationChange.DOWN);
-        DEFAULT_KEY_BINDINGS[4].put(KeyEvent.VK_4, DirectOrientationChange.LEFT);
-        DEFAULT_KEY_BINDINGS[4].put(KeyEvent.VK_6, DirectOrientationChange.RIGHT);
-
-        DEFAULT_KEY_BINDINGS[5] = new HashMap<>();
-        DEFAULT_KEY_BINDINGS[5].put(KeyEvent.VK_V, RotatatingOrientationChange.COUNTERCLOCKWISE);
-        DEFAULT_KEY_BINDINGS[5].put(KeyEvent.VK_B, RotatatingOrientationChange.CLOCKWISE);
-    }
-
-    public ModelImpl(GameArena arena, int playerCount) {
-        if (playerCount > DEFAULT_KEY_BINDINGS.length) {
-            throw new IllegalArgumentException("There are only " + DEFAULT_KEY_BINDINGS.length + " player controls defined.");
-        }
-
+    public ModelImpl(GameArena arena) {
         this.arena = arena;
         this.players = new LinkedList<>();
-        this.playerKeyBindings = new LinkedList<>();
-
-        initializePlayers(playerCount);
+        initializePlayers();
     }
 
-    private void initializePlayers(int playerCount) {
-        for (int i = 0; i < playerCount; i++) {
-            Player player = new PlayerImpl(
-                    new Point(
-                            (i * arena.getHeight() / playerCount) / gameSpeed * gameSpeed,
-                            (i * arena.getWidth() / playerCount) / gameSpeed * gameSpeed)
-            );
-            players.add(player);
-            playerKeyBindings.add(new ControlKeyBinder(player, DEFAULT_KEY_BINDINGS[i]));
+    private void initializePlayers() {
+        Map<Integer, OrientationChangeAction> controlsPlayer1 = new HashMap<>();
+        controlsPlayer1.put(MouseEvent.BUTTON1, RotatatingOrientationChange.COUNTERCLOCKWISE);
+        controlsPlayer1.put(MouseEvent.BUTTON3, RotatatingOrientationChange.CLOCKWISE);
+        players.add(createNewPlayer(new Point(250, 500), controlsPlayer1, new Orientation(1, 0), Color.GREEN));
+
+        Map<Integer, OrientationChangeAction> controlsPlayer2 = new HashMap<>();
+        controlsPlayer2.put(KeyEvent.VK_UP, DirectOrientationChange.UP);
+        controlsPlayer2.put(KeyEvent.VK_DOWN, DirectOrientationChange.DOWN);
+        controlsPlayer2.put(KeyEvent.VK_LEFT, DirectOrientationChange.LEFT);
+        controlsPlayer2.put(KeyEvent.VK_RIGHT, DirectOrientationChange.RIGHT);
+        players.add(createNewPlayer(new Point(800, 500), controlsPlayer2, new Orientation(-1, 0), Color.RED));
+
+        /*
+        Map<Integer, OrientationChangeAction> controlsPlayer3 = new HashMap<>();
+        controlsPlayer3.put(KeyEvent.VK_W, DirectOrientationChange.UP);
+        controlsPlayer3.put(KeyEvent.VK_S, DirectOrientationChange.DOWN);
+        controlsPlayer3.put(KeyEvent.VK_A, DirectOrientationChange.LEFT);
+        controlsPlayer3.put(KeyEvent.VK_D, DirectOrientationChange.RIGHT);
+        players.add(createNewPlayer(new Point(250,75),controlsPlayer3, new Orientation(1, 0), Color.BLUE));
+        
+        Map<Integer, OrientationChangeAction> controlsPlayer4 = new HashMap<>();
+        controlsPlayer4.put(KeyEvent.VK_I, DirectOrientationChange.UP);
+        controlsPlayer4.put(KeyEvent.VK_K, DirectOrientationChange.DOWN);
+        controlsPlayer4.put(KeyEvent.VK_J, DirectOrientationChange.LEFT);
+        controlsPlayer4.put(KeyEvent.VK_L, DirectOrientationChange.RIGHT);
+        players.add(createNewPlayer(new Point(800,75),controlsPlayer4, new Orientation(-1, 0), Color.WHITE));
+         */
+    }
+
+    private PlayerWithControls createNewPlayer(Point startingPosition,
+            Map<Integer, OrientationChangeAction> controls,
+            Orientation orientation,
+            Color playerColor) {
+        verifyCoordinates(startingPosition);
+        verifyOrientation(orientation);
+
+        Player newPlayer = new PlayerImpl(startingPosition, orientation, playerColor);
+
+        Map<Integer, OrientationChangeAction> playerControls = controls;
+
+        return new PlayerWithControls(newPlayer, playerControls);
+    }
+
+    private void verifyCoordinates(Point coordinates) {
+        if (coordinates.x % gameSpeed != 0) {
+            throw new IllegalArgumentException("Player's starting position x coordinate needs to be divisable by game speed: " + gameSpeed);
         }
-        
-        
+        if (coordinates.y % gameSpeed != 0) {
+            throw new IllegalArgumentException("Player's starting position y coordinate needs to be divisable by game speed: " + gameSpeed);
+        }
     }
 
-    public List<Player> getPlayers() {
+    private void verifyOrientation(Orientation orientation) {
+        if (Integer.signum(orientation.x) == Integer.signum(orientation.y)) {
+            throw new IllegalArgumentException("Diagonal orientation not supported: "+orientation);
+        }
+    }
+
+    public List<PlayerWithControls> getPlayers() {
         return Collections.unmodifiableList(players);
     }
 
     public void movePlayers() {
-        //List<Point> nextPositions = 
         calculateNextPositions();
-        //updatePaths(nextPositions);
         checkCollision();
     }
 
     private List<Point> calculateNextPositions() {
         List<Point> nextPositions = new LinkedList<>();
-        for (Player player : players) {
-            Point newCoordinates = getNewPositionCoordinates(player);
-            player.moveToNewPosition(normalizeToGameArena(newCoordinates));
+        for (PlayerWithControls player : players) {
+            Point newCoordinates = getNewPositionCoordinates(player.getPlayer());
+            player.getPlayer().moveToNewPosition(normalizeToGameArena(newCoordinates));
         }
         return nextPositions;
     }
@@ -115,8 +117,8 @@ public class ModelImpl implements Model {
     }
 
     private void checkCollision() {
-        for (Player player : players) {
-            if (hasCollidedWithOpponent(player)) {
+        for (PlayerWithControls player : players) {
+            if (hasCollidedWithOpponent(player.getPlayer())) {
                 System.out.println("Collision detected. Exiting.");
                 System.exit(0);
             }
@@ -124,30 +126,24 @@ public class ModelImpl implements Model {
     }
 
     private boolean hasCollidedWithOpponent(Player player) {
-        for (Player opponentPlayer : players) {
-            if (opponentPlayer.getPath().contains(player.getCurrentPosition())) {
+        for (PlayerWithControls opponentPlayer : players) {
+            if (opponentPlayer.getPlayer().getPath().contains(player.getCurrentPosition())) {
                 return true;
             }
         }
         return false;
     }
-    
-    public void updatePaths(List<Point> newPaths) {
-        int iterator = 0;
-        for(Player player : players) {
-            player.moveToNewPosition(newPaths.get(iterator));
-        }
-    }
 
     public void changePlayerOrientationWithInput(int input) {
-        ControlKeyBinder foundControls = findKeysMappedToPlayer(input);
+        PlayerWithControls foundControls = findKeysMappedToPlayer(input);
+        System.out.println(input);
         if (foundControls != null) {
             foundControls.getPlayer().changeOrientation(foundControls.getOrientationChange(input));
         }
     }
 
-    private ControlKeyBinder findKeysMappedToPlayer(int input) {
-        for (ControlKeyBinder controls : playerKeyBindings) {
+    private PlayerWithControls findKeysMappedToPlayer(int input) {
+        for (PlayerWithControls controls : players) {
             if (controls.isControlledByKey(input)) {
                 return controls;
             }

@@ -20,7 +20,7 @@ public class Orientation extends Point {
         super(Integer.signum(x), Integer.signum(y));
     }
     
-    public Orientation getOppositeOrientation(Orientation orientation){
-        return new Orientation(this.x * (-1), this.y * (-1));
+    public boolean isOppositeOrientation(Orientation orientation){
+        return this.x == orientation.x * (-1) && this.y == orientation.y * (-1);
     }
 }

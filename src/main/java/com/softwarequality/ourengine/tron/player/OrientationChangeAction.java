@@ -1,7 +1,7 @@
 package com.softwarequality.ourengine.tron.player;
 
 /**
- * 
+ * A player action that changes his/hers orientation.
  * 
  */
 public interface OrientationChangeAction {

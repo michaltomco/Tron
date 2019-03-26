@@ -1,8 +1,6 @@
 package com.softwarequality.ourengine.tron;
 
 import java.awt.Point;
-import java.util.List;
-import java.util.Map;
 
 public class GameArena {
 

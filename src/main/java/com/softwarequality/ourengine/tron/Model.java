@@ -7,5 +7,5 @@ public interface Model {
     
     public void changePlayerOrientationWithInput(int input);
     public void movePlayers();
-    public List<Player> getPlayers();
+    public List<PlayerWithControls> getPlayers();
 }

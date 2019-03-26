@@ -5,7 +5,7 @@ package com.softwarequality.ourengine.tron.player;
  *
  */
 public enum RotatatingOrientationChange implements OrientationChangeAction {
-    CLOCKWISE(-1, 1), COUNTERCLOCKWISE(1, -1);
+    CLOCKWISE(1, -1), COUNTERCLOCKWISE(-1, 1);
 
     private final Orientation rotation = new Orientation();
 
