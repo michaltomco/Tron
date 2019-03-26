@@ -1,4 +1,4 @@
-package com.softwarequality.ourengine;
+package com.softwarequality.engine;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;

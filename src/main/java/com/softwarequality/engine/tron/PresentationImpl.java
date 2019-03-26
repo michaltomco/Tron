@@ -1,29 +1,19 @@
-package com.softwarequality.ourengine.tron;
+package com.softwarequality.engine.tron;
 
-import com.softwarequality.ourengine.ListenerImpl;
-import com.softwarequality.ourengine.tron.player.PlayerWithControls;
-import com.softwarequality.ourengine.Core;
-import com.softwarequality.ourengine.tron.player.Player;
+import com.softwarequality.engine.ListenerImpl;
+import com.softwarequality.engine.tron.player.PlayerWithControls;
+import com.softwarequality.engine.Core;
+import com.softwarequality.engine.tron.player.Player;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Window;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.util.LinkedList;
 import java.util.List;
 
 
 public class PresentationImpl extends Core {
 
     private Model gameLogic;
-
-    public static void main(String[] args) {
-        new PresentationImpl().run();
-    }
 
     public void init() {
         super.init();

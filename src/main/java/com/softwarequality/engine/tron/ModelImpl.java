@@ -1,12 +1,12 @@
-package com.softwarequality.ourengine.tron;
+package com.softwarequality.engine.tron;
 
-import com.softwarequality.ourengine.tron.player.PlayerWithControls;
-import com.softwarequality.ourengine.tron.player.DirectOrientationChange;
-import com.softwarequality.ourengine.tron.player.Orientation;
-import com.softwarequality.ourengine.tron.player.OrientationChangeAction;
-import com.softwarequality.ourengine.tron.player.Player;
-import com.softwarequality.ourengine.tron.player.PlayerImpl;
-import com.softwarequality.ourengine.tron.player.RotatatingOrientationChange;
+import com.softwarequality.engine.tron.player.PlayerWithControls;
+import com.softwarequality.engine.tron.player.DirectOrientationChange;
+import com.softwarequality.engine.tron.player.Orientation;
+import com.softwarequality.engine.tron.player.OrientationChangeAction;
+import com.softwarequality.engine.tron.player.Player;
+import com.softwarequality.engine.tron.player.PlayerImpl;
+import com.softwarequality.engine.tron.player.RotatatingOrientationChange;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
