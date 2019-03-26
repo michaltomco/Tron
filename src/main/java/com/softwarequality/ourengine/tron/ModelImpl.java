@@ -1,5 +1,6 @@
 package com.softwarequality.ourengine.tron;
 
+import com.softwarequality.ourengine.tron.player.PlayerWithControls;
 import com.softwarequality.ourengine.tron.player.DirectOrientationChange;
 import com.softwarequality.ourengine.tron.player.Orientation;
 import com.softwarequality.ourengine.tron.player.OrientationChangeAction;

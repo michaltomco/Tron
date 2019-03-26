@@ -5,18 +5,17 @@ import java.awt.image.BufferedImage;
 
 public abstract class Core {
 
-    private static final DisplayMode modes[] =
-            {
-                    //new DisplayMode(1920,1080,32,0),
-                    new DisplayMode(1680, 1050, 32, 0),
-                    //new DisplayMode(1280,1024,32,0),
-                    new DisplayMode(800, 600, 32, 0),
-                    new DisplayMode(800, 600, 24, 0),
-                    new DisplayMode(800, 600, 16, 0),
-                    new DisplayMode(640, 480, 32, 0),
-                    new DisplayMode(640, 480, 24, 0),
-                    new DisplayMode(640, 480, 16, 0),
-            };
+    private static final DisplayMode modes[]
+            = {
+                //new DisplayMode(1920,1080,32,0),
+                new DisplayMode(1680, 1050, 32, 0),
+                //new DisplayMode(1280,1024,32,0),
+                new DisplayMode(800, 600, 32, 0),
+                new DisplayMode(800, 600, 24, 0),
+                new DisplayMode(800, 600, 16, 0),
+                new DisplayMode(640, 480, 32, 0),
+                new DisplayMode(640, 480, 24, 0),
+                new DisplayMode(640, 480, 16, 0),};
     private boolean running;
     protected ScreenManager screenManager;
 
@@ -42,8 +41,11 @@ public abstract class Core {
         screenManager = new ScreenManager();
         DisplayMode displayMode = screenManager.findFirstCompatibaleMode(modes);
         screenManager.setFullScreen(displayMode);
+        setFullScreenWindowProperties();
+    }
+
+    private void setFullScreenWindowProperties() throws HeadlessException, IndexOutOfBoundsException {
         Window fullScreenWindow = screenManager.getFullScreenWindow();
-        fullScreenWindow.setFont(new Font("Arial", Font.PLAIN, 20));
         fullScreenWindow.setBackground(Color.WHITE);
         fullScreenWindow.setForeground(Color.RED);
         fullScreenWindow.setCursor(fullScreenWindow.getToolkit().createCustomCursor(
@@ -59,16 +61,19 @@ public abstract class Core {
             long timePassed = System.currentTimeMillis() - cumTime;
             cumTime += timePassed;
             update(timePassed);
-            Graphics2D graphics = screenManager.getGraphics();
-            draw(graphics);
-            graphics.dispose();
-            screenManager.update();
-
+            drawFrame();
             try {
                 Thread.sleep(20);
             } catch (Exception ex) {
             }
         }
+    }
+
+    private void drawFrame() {
+        Graphics2D graphics = screenManager.getGraphics();
+        draw(graphics);
+        graphics.dispose();
+        screenManager.update();
     }
 
     public void update(long timePassed) {

@@ -16,11 +16,16 @@ public class Orientation extends Point {
         super(o);
     }
 
+    /**
+     * Creates an Orientation object from given integers. If these are greater
+     * than one, they are coded into 1 for positive and -1 for negative numbers.
+     *
+     */
     public Orientation(int x, int y) {
         super(Integer.signum(x), Integer.signum(y));
     }
-    
-    public boolean isOppositeOrientation(Orientation orientation){
+
+    public boolean isOppositeOrientation(Orientation orientation) {
         return this.x == orientation.x * (-1) && this.y == orientation.y * (-1);
     }
 }

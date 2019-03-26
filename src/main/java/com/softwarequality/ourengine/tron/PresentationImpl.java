@@ -1,5 +1,6 @@
 package com.softwarequality.ourengine.tron;
 
+import com.softwarequality.ourengine.tron.player.PlayerWithControls;
 import com.softwarequality.ourengine.Core;
 import com.softwarequality.ourengine.tron.player.Player;
 import java.awt.Color;

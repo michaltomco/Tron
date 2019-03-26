@@ -1,7 +1,5 @@
-package com.softwarequality.ourengine.tron;
+package com.softwarequality.ourengine.tron.player;
 
-import com.softwarequality.ourengine.tron.player.OrientationChangeAction;
-import com.softwarequality.ourengine.tron.player.Player;
 import java.util.Map;
 
 public class PlayerWithControls {
