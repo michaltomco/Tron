@@ -26,7 +26,7 @@ public class PresentationImpl extends Core implements KeyListener, MouseListener
 
     public void init() {
         super.init();
-        this.gameLogic = new ModelImpl(new GameArena(screenManager.getWidth(), screenManager.getHeight()));
+        this.gameLogic = new ModelImpl(screenManager.getWidth(), screenManager.getHeight());
 
         Window fullScreenWindow = screenManager.getFullScreenWindow();
         addListeners(fullScreenWindow);

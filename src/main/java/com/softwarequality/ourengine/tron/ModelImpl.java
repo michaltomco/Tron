@@ -23,8 +23,9 @@ public class ModelImpl implements Model {
     private final List<PlayerWithControls> players;
     private final int gameSpeed = 5;
 
-    public ModelImpl(GameArena arena) {
-        this.arena = arena;
+    public ModelImpl(int arenaWidth, int arenaHeight) {
+        GameArena gameArena = new GameArena(arenaWidth, arenaHeight);
+        this.arena = gameArena;
         this.players = new LinkedList<>();
         initializePlayers();
     }
@@ -127,9 +128,13 @@ public class ModelImpl implements Model {
         List<Point> nextPositions = new LinkedList<>();
         for (PlayerWithControls player : players) {
             Point newCoordinates = getNewPositionCoordinates(player.getPlayer());
-            player.getPlayer().moveToNewPosition(normalizeToGameArena(newCoordinates));
+            updatePlayerPosition(player, newCoordinates);
         }
         return nextPositions;
+    }
+
+    private void updatePlayerPosition(PlayerWithControls player, Point newCoordinates) {
+        player.getPlayer().moveToNewPosition(normalizeToGameArena(newCoordinates));
     }
 
     private Point getNewPositionCoordinates(Player player) {
