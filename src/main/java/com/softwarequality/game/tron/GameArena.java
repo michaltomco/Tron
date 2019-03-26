@@ -1,4 +1,4 @@
-package com.softwarequality.engine.tron;
+package com.softwarequality.game.tron;
 
 import java.awt.Point;
 

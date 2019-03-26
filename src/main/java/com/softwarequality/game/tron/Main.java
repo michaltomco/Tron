@@ -1,6 +1,4 @@
-package com.softwarequality.engine;
-
-import com.softwarequality.engine.tron.PresentationImpl;
+package com.softwarequality.game.tron;
 
 public class Main {
 

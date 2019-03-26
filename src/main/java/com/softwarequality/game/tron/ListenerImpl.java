@@ -1,6 +1,6 @@
-package com.softwarequality.engine;
+package com.softwarequality.game.tron;
 
-import com.softwarequality.engine.tron.Model;
+import com.softwarequality.game.tron.Model;
 
 import java.awt.event.*;
 

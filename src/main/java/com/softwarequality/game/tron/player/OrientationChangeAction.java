@@ -1,4 +1,4 @@
-package com.softwarequality.engine.tron.player;
+package com.softwarequality.game.tron.player;
 
 /**
  * A player action that changes his/hers orientation.

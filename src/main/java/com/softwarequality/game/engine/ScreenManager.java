@@ -1,4 +1,4 @@
-package com.softwarequality.engine;
+package com.softwarequality.game.engine;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;

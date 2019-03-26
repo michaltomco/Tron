@@ -1,6 +1,6 @@
-package com.softwarequality.engine.tron;
+package com.softwarequality.game.tron;
 
-import com.softwarequality.engine.tron.player.PlayerWithControls;
+import com.softwarequality.game.tron.player.PlayerWithControls;
 import java.util.List;
 
 public interface Model {

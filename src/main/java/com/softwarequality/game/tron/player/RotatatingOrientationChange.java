@@ -1,4 +1,4 @@
-package com.softwarequality.engine.tron.player;
+package com.softwarequality.game.tron.player;
 
 /**
  * Enumeration object representing Player's angular change movement option.

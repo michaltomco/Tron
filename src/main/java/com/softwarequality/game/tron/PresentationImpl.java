@@ -1,9 +1,8 @@
-package com.softwarequality.engine.tron;
+package com.softwarequality.game.tron;
 
-import com.softwarequality.engine.ListenerImpl;
-import com.softwarequality.engine.tron.player.PlayerWithControls;
-import com.softwarequality.engine.Core;
-import com.softwarequality.engine.tron.player.Player;
+import com.softwarequality.game.tron.player.PlayerWithControls;
+import com.softwarequality.game.engine.Core;
+import com.softwarequality.game.tron.player.Player;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
