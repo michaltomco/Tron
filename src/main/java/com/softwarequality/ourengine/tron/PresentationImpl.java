@@ -1,5 +1,6 @@
 package com.softwarequality.ourengine.tron;
 
+import com.softwarequality.ourengine.ListenerImpl;
 import com.softwarequality.ourengine.tron.player.PlayerWithControls;
 import com.softwarequality.ourengine.Core;
 import com.softwarequality.ourengine.tron.player.Player;
@@ -12,11 +13,11 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.LinkedList;
 import java.util.List;
 
 
-public class PresentationImpl extends Core implements KeyListener, MouseListener,
-        MouseMotionListener {
+public class PresentationImpl extends Core {
 
     private Model gameLogic;
 
@@ -28,20 +29,23 @@ public class PresentationImpl extends Core implements KeyListener, MouseListener
         super.init();
         this.gameLogic = new ModelImpl(screenManager.getWidth(), screenManager.getHeight());
 
+        ListenerImpl listener = new ListenerImpl(this.gameLogic);
+
         Window fullScreenWindow = screenManager.getFullScreenWindow();
-        addListeners(fullScreenWindow);
+        addListeners(fullScreenWindow, listener);
     }
 
-    private void addListeners(Window fullScreenWindow) {
-        fullScreenWindow.addKeyListener(this);
-        fullScreenWindow.addMouseListener(this);
+    // TODO move
+    private void addListeners(Window fullScreenWindow, ListenerImpl listener) {
+        fullScreenWindow.addKeyListener(listener);
+        fullScreenWindow.addMouseListener(listener);
     }
 
     @Override
     public void draw(Graphics2D graphics2D) {
         drawBackground(graphics2D);
         
-        gameLogic.movePlayers();
+        gameLogic.movePlayers();  // TODO move
 
         List<PlayerWithControls> players = gameLogic.getPlayers();
         for (PlayerWithControls player : players) {
@@ -59,51 +63,6 @@ public class PresentationImpl extends Core implements KeyListener, MouseListener
             graphics2D.setColor(player.getColor());
             graphics2D.fillRect(pathPoint.x, pathPoint.y, 10, 10);
         }
-    }
-
-    @Override
-    public void keyPressed(KeyEvent event) {
-        int key = event.getKeyCode();
-        gameLogic.changePlayerOrientationWithInput(key);
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent event) {
-        int mouseButton = event.getButton();
-        gameLogic.changePlayerOrientationWithInput(mouseButton);
-    }
-
-    @Override
-    public void keyTyped(KeyEvent arg0) {
-    }
-
-    @Override
-    public void keyReleased(KeyEvent arg0) {
-    }
-
-    @Override
-    public void mousePressed(MouseEvent event) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent arg0) {
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent arg0) {
-    }
-
-    @Override
-    public void mouseExited(MouseEvent arg0) {
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent arg0) {
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent arg0) {
     }
 
 }
