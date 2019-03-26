@@ -4,10 +4,6 @@ import com.softwarequality.ourengine.tron.player.OrientationChangeAction;
 import com.softwarequality.ourengine.tron.player.Player;
 import java.util.Map;
 
-/**
- *
- * @author tomco
- */
 public class ControlKeyBinder {
 
     private final Player player;

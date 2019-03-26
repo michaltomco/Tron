@@ -45,3 +45,16 @@
 * Player classes should implement one of KeyListener, MouseListener, MouseMotionListener.
 
 * Add logging
+
+
+* Pull out the game engine
+
+* Key controls not working properly
+
+* Self collision not yet implemented
+
+* Check SOLID principles
+
+* Delete not needed classes
+
+* Change ControlKeyBinder to be less clunky

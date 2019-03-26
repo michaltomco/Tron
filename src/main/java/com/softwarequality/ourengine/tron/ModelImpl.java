@@ -14,10 +14,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-/**
- *
- * @author Michal Tomčo
- */
 public class ModelImpl implements Model {
 
     private final GameArena arena;
@@ -83,6 +79,8 @@ public class ModelImpl implements Model {
             players.add(player);
             playerKeyBindings.add(new ControlKeyBinder(player, DEFAULT_KEY_BINDINGS[i]));
         }
+        
+        
     }
 
     public List<Player> getPlayers() {
@@ -90,16 +88,17 @@ public class ModelImpl implements Model {
     }
 
     public void movePlayers() {
-        List<Point> nextPositions = calculateNextPositions();
+        //List<Point> nextPositions = 
+        calculateNextPositions();
+        //updatePaths(nextPositions);
         checkCollision();
-       // updatePaths(nextPositions);
     }
 
     private List<Point> calculateNextPositions() {
         List<Point> nextPositions = new LinkedList<>();
         for (Player player : players) {
             Point newCoordinates = getNewPositionCoordinates(player);
-            player.addToPath(normalizeToGameArena(newCoordinates));
+            player.moveToNewPosition(normalizeToGameArena(newCoordinates));
         }
         return nextPositions;
     }
@@ -126,20 +125,20 @@ public class ModelImpl implements Model {
 
     private boolean hasCollidedWithOpponent(Player player) {
         for (Player opponentPlayer : players) {
-            if (!player.equals(opponentPlayer) && opponentPlayer.getPath().contains(player.getCurrentPosition())) {
+            if (opponentPlayer.getPath().contains(player.getCurrentPosition())) {
                 return true;
             }
         }
         return false;
     }
-    /*
+    
     public void updatePaths(List<Point> newPaths) {
         int iterator = 0;
         for(Player player : players) {
-            player.addToPath(newPaths.get(iterator));
+            player.moveToNewPosition(newPaths.get(iterator));
         }
     }
-*/
+
     public void changePlayerOrientationWithInput(int input) {
         ControlKeyBinder foundControls = findKeysMappedToPlayer(input);
         if (foundControls != null) {

@@ -1,11 +1,8 @@
 package com.softwarequality.ourengine.tron.player;
 
-import java.awt.Point;
-
 /**
- * An enumeration that joins given directions to their related counterparts.
+ * Enumeration object representing Player's angular change movement option.
  *
- * @author Michal Tomčo
  */
 public enum RotatatingOrientationChange implements OrientationChangeAction {
     CLOCKWISE(-1, 1), COUNTERCLOCKWISE(1, -1);

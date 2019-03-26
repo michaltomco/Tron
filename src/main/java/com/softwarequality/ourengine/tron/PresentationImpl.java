@@ -1,7 +1,6 @@
 package com.softwarequality.ourengine.tron;
 
 import com.softwarequality.ourengine.Core;
-import com.softwarequality.ourengine.YourClass;
 import com.softwarequality.ourengine.tron.player.Player;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -12,13 +11,9 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author tomco
- */
+
 public class PresentationImpl extends Core implements KeyListener, MouseListener,
         MouseMotionListener {
 

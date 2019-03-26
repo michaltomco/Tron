@@ -1,10 +1,8 @@
 package com.softwarequality.ourengine.tron.player;
 
-import java.awt.Point;
-
 /**
- *
- * @author Michal Tomčo
+ * Enumeration object representing Player's direct movement change option.
+ * 
  */
 public enum DirectOrientationChange implements OrientationChangeAction {
     UP(0,1), DOWN(0,-1), LEFT(-1,0), RIGHT(1,0);

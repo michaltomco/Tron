@@ -5,22 +5,18 @@ import java.awt.Point;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
-import java.util.Random;
 
-/**
- *
- * @author Michal Tomčo
- */
 public class PlayerImpl implements Player {
 
     private Orientation orientation;
+    private Point currentPosition;
     private final LinkedList<Point> path;
     private final Color playerColor;
 
     public PlayerImpl(Point startingPosition) {
         this.path = new LinkedList<>();
-        path.add(startingPosition);
-
+        
+        this.currentPosition = startingPosition;
         this.orientation = new Orientation(
                 DirectOrientationChange.UP.getOrientationChangeCoordinates()
         );
@@ -32,28 +28,35 @@ public class PlayerImpl implements Player {
 
     public PlayerImpl(Point startingPosition, Orientation orientation) {
         this.path = new LinkedList<>();
-        path.add(startingPosition);
+        
+        this.currentPosition = startingPosition;
         this.orientation = orientation;
 
         this.playerColor = new Color(
                 (int) (Math.random() * 255),
-                (int) (Math.random() * 255), 
+                (int) (Math.random() * 255),
                 (int) (Math.random() * 255)
         );
     }
 
     public PlayerImpl(Point startingPosition, Orientation orientation, Color playerColor) {
         this.path = new LinkedList<>();
-        path.add(startingPosition);
+        
+        this.currentPosition = startingPosition;
         this.orientation = orientation;
 
         this.playerColor = playerColor;
 
     }
 
+    public void moveToNewPosition(Point newPosition) {
+        this.path.add(this.currentPosition);
+        this.currentPosition = newPosition;
+    }
+
     @Override
     public Point getCurrentPosition() {
-        return new Point(path.getLast());
+        return currentPosition;
     }
 
     public void setOrientation(Orientation orientation) {
@@ -70,10 +73,6 @@ public class PlayerImpl implements Player {
         return Collections.unmodifiableCollection(path);
     }
 
-    public void addToPath(Point newPosition) {
-        this.path.add(newPosition);
-    }
-
     public Color getColor() {
         return playerColor;
     }
@@ -86,7 +85,7 @@ public class PlayerImpl implements Player {
         }
     }
 
-    public boolean isOppositeOrientation(Orientation orientation) {
-        return this.orientation.x == orientation.x;
-    }
+    private boolean isOppositeOrientation(Orientation orientation) {
+        return this.orientation.equals(orientation.getOppositeOrientation(orientation));
+    }    
 }
