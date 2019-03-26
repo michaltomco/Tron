@@ -35,7 +35,6 @@ public class PresentationImpl extends Core {
         addListeners(fullScreenWindow, listener);
     }
 
-    // TODO move
     private void addListeners(Window fullScreenWindow, ListenerImpl listener) {
         fullScreenWindow.addKeyListener(listener);
         fullScreenWindow.addMouseListener(listener);
@@ -44,13 +43,16 @@ public class PresentationImpl extends Core {
     @Override
     public void draw(Graphics2D graphics2D) {
         drawBackground(graphics2D);
-        
-        gameLogic.movePlayers();  // TODO move
 
         List<PlayerWithControls> players = gameLogic.getPlayers();
         for (PlayerWithControls player : players) {
             colorPlayerPath(graphics2D, player.getPlayer());
         }
+    }
+
+    @Override
+    public void update(long timePassed) {
+        gameLogic.movePlayers();
     }
 
     private void drawBackground(Graphics2D graphics2D) {
