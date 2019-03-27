@@ -1,18 +1,7 @@
 # PV260 Assignement 1 - Tron game
 
 ## Notes
-* ScreenManager does not seem to need any changes.
-
-* Inteface between Engine and Player:
-    * get current position
-    * get path
-
-## TODO
-* Add logging
-
-* Pull out the game engine
-
-* Check SOLID principles
+Please check Pull request #1
 
 ## Feedback
 Čo sa týka aktuálneho stavu riešenia, tak mám naseldovné pripomienky:

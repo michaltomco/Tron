@@ -65,6 +65,7 @@ public abstract class Core {
             try {
                 Thread.sleep(20);
             } catch (Exception ex) {
+                System.out.println(ex.getMessage());
             }
         }
     }
