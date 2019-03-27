@@ -1,7 +1,7 @@
 package com.softwarequality.game.tron;
 
+import com.softwarequality.game.engine.ScreenManager;
 import com.softwarequality.game.tron.player.PlayerWithControls;
-import com.softwarequality.game.engine.Core;
 import com.softwarequality.game.tron.player.Player;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -10,21 +10,35 @@ import java.awt.Window;
 import java.util.List;
 
 
-public class PresentationImpl extends Core {
+public class PresentationImpl
+    implements Presentation
+//        extends Core
+{
 
     private Model gameLogic;
+    private ScreenManager screenManager;
+
+    public PresentationImpl() {}
+
+    public PresentationImpl(ScreenManager screenManager, Model gameLogic) {
+        this.screenManager = screenManager;
+        this.gameLogic = gameLogic;
+    }
 
     public void init() {
-        super.init();
-        this.gameLogic = new ModelImpl(screenManager.getWidth(), screenManager.getHeight());
+//        super.init();
 
+//        int width = screenManager.getWidth();
+//        int height = screenManager.getHeight();
+//        this.gameLogic = new ModelImpl(width, height);
+
+        addListener();
+    }
+
+    public void addListener() {
         ListenerImpl listener = new ListenerImpl(this.gameLogic);
 
         Window fullScreenWindow = screenManager.getFullScreenWindow();
-        addListeners(fullScreenWindow, listener);
-    }
-
-    private void addListeners(Window fullScreenWindow, ListenerImpl listener) {
         fullScreenWindow.addKeyListener(listener);
         fullScreenWindow.addMouseListener(listener);
     }
@@ -39,10 +53,10 @@ public class PresentationImpl extends Core {
         }
     }
 
-    @Override
-    public void update(long timePassed) {
-        gameLogic.movePlayers();
-    }
+//    @Override
+//    public void update(long timePassed) {  //TODO move
+//        gameLogic.movePlayers();
+//    }
 
     private void drawBackground(Graphics2D graphics2D) {
         graphics2D.setColor(Color.BLACK);
